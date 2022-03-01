@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>catchColorOfBetween</title>
+
+    <style>
+        /*google font Castoro*/
+        @import url('https://fonts.googleapis.com/css2?family=Benne&family=Castoro&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Display:wght@400;500;700&display=swap');
+
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .title {
+            font-family: 'Castoro', serif;
+            font-size: 2em;
+        }
+
+        .heightlight {
+            position: relative;
+            color: #e98e8e;
+            font-size: 1.3em;
+        }
+
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
+        }
+
+        .container1 {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            margin-top: 30vh;
+            transition: 0.5s;
+            margin-bottom: 50px;
+        }
+
+        .container1.-visable {
+            margin-top: 15vh;
+        }
+
+        .container2 {
+            /* display: flex; */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            display: none;
+        }
+
+        .container2.-visable {
+            display: flex;
+        }
+
+
+        .colorSquares {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px 0 50px 0;
+        }
+
+        .colorBox {
+            display: flex;
+            /* max-width: 350px; */
+            /* max-width: 60vw; */
+            max-width: calc(100vw - 150px);
+        }
+
+        .colorSquare {
+            width: 50px;
+            height: 50px;
+            /* border: 1px solid rgb(187, 187, 187); */
+            box-sizing: border-box;
+            transition: 0.3s;
+            margin: 0 1px;
+        }
+
+        .colorSquare:hover {
+            /* transform: scale(1.3); */
+            /* z-index: 2;
+            cursor: pointer; */
+        }
+
+        label {
+            position: relative;
+            border: 3px solid rgb(207, 207, 207);
+            box-sizing: border-box;
+            border-radius: 3px;
+            padding: 2px;
+            margin: 0 1.5px;
+        }
+
+        #color1,
+        #color2 {
+            height: 0;
+            width: 0;
+            position: absolute;
+            opacity: 0;
+        }
+
+        #color1Text,
+        #color2Text {
+            position: absolute;
+            width: 100%;
+            bottom: -30px;
+            left: -4px;
+            padding: 2px;
+            /* font-family: 'Benne', serif; */
+        }
+
+        .contaller {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .contaller input[type="button"] {
+            padding: 5px;
+            margin: 15px;
+        }
+
+        .showDetail {
+            width: 80vw;
+            border: 1px solid rgb(207, 207, 207);
+            opacity: 0;
+            font-family: 'Castoro', serif;
+            padding: 10px 10px 15px;
+            border-radius: 3px;
+        }
+
+        .showDetail.-visable {
+            animation-name: downAndShow;
+            animation-duration: 0.8s;
+            animation-fill-mode: forwards;
+        }
+
+        .showDetailRow {
+            display: flex;
+            padding: 12px;
+            opacity: 0;
+        }
+
+        .showDetailRow.-visable {
+            animation-name: downAndShow;
+            animation-duration: 0.8s;
+            animation-fill-mode: forwards;
+        }
+
+        .showDetailRow .rowSquare {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            width: 33%;
+            box-sizing: border-box;
+        }
+
+        .showDetailRow .rowSquare .color {
+            height: 30px;
+            width: 30px;
+            background: black;
+            /* border-radius: 3px; */
+            margin-right: 0.5rem;
+            border: 1px solid rgb(207, 207, 207);
+        }
+
+        .showDetailRow .rowSquare .text {
+            font-weight: bold;
+            font-family: 'Big Shoulders Stencil Display', cursive;
+        }
+
+        .showDetailRow:nth-child(1) {
+            border-bottom: 1px solid rgb(207, 207, 207);
+            animation-delay: 0.3s;
+        }
+
+        .showDetailRow:nth-child(2) {
+            animation-delay: 0.6s;
+        }
+
+        .showDetailRow:nth-child(3) {
+            animation-delay: 0.9s;
+        }
+
+        .showDetailRow:nth-child(4) {
+            animation-delay: 1.2s;
+        }
+
+        .showDetailRow:nth-child(5) {
+            animation-delay: 1.5s;
+        }
+
+        .showDetailRow:nth-child(6) {
+            animation-delay: 1.8s;
+        }
+
+        .hidden {
+            display: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        @keyframes downAndShow {
+            0% {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="container1">
+            <!-- 標題 -->
+            <h1 class="title">Catch Between Color<span class="heightlight">.</span></h1>
+            <!-- 顏色設定區塊 -->
+            <div class="colorSquares">
+                <label>
+                    <div class="colorSquare"></div>
+                    <input id="color1" type="color" value="#ffffff">
+                    <input id="color1Text" type="text">
+                </label>
+                <div class="colorBox"></div>
+                <label>
+                    <div class="colorSquare"></div>
+                    <input id="color2" type="color" value="#e98e8e">
+                    <input id="color2Text" type="text">
+                </label>
+            </div>
+            <!-- 控制區塊 -->
+            <div class="contaller">
+                <div>
+                    <span>Get Count:</span>
+                    <input id="rangeController" value="5" type="range" min="1" max="15">
+                </div>
+                <input onclick="delDetail()" type="button" value="Show Detail">
+            </div>
+        </div>
+        <div class="container2">
+            <!-- 細節顯示區塊 -->
+            <div class="showDetail">
+                <div class="showDetailRow">
+                    <div class="rowSquare">Input</div>
+                    <div class="rowSquare">
+                        <div class="color"></div>
+                        <div class="text">0</div>
+                    </div>
+                    <div class="rowSquare">
+                        <div class="color"></div>
+                        <div class="text">length-1</div>
+                    </div>
+                </div>
+                <div class="showDetailRow">
+                    <div class="rowSquare">
+                        <div class="color"></div>
+                        <div class="text">1</div>
+                    </div>
+                    <div class="rowSquare">
+                        <div class="color"></div>
+                        <div class="text">2</div>
+                    </div>
+                    <div class="rowSquare">
+                        <div class="color"></div>
+                        <div class="text">3</div>
+                    </div>
+                </div>
+                <div class="showDetailRow">
+                    <div class="rowSquare">
+                        <div class="color"></div>
+                        <div class="text">4</div>
+                    </div>
+                    <div class="rowSquare">
+                        <div class="color"></div>
+                        <div class="text">5</div>
+                    </div>
+                    <div class="rowSquare">
+                        <div class="color"></div>
+                        <div class="text">6</div>
+                    </div>
+                </div>
+                <div class="showDetailRow">
+                    <div class="rowSquare">
+                        <div class="color"></div>
+                        <div class="text">7</div>
+                    </div>
+                    <div class="rowSquare">
+                        <div class="color"></div>
+                        <div class="text">8</div>
+                    </div>
+                    <div class="rowSquare">
+                        <div class="color"></div>
+                        <div class="text">9</div>
+                    </div>
+                </div>
+                <div class="showDetailRow">
+                    <div class="rowSquare">
+                        <div class="color"></div>
+                        <div class="text">10</div>
+                    </div>
+                    <div class="rowSquare">
+                        <div class="color"></div>
+                        <div class="text">11</div>
+                    </div>
+                    <div class="rowSquare">
+                        <div class="color"></div>
+                        <div class="text">12</div>
+                    </div>
+                </div>
+                <div class="showDetailRow">
+                    <div class="rowSquare">
+                        <div class="color"></div>
+                        <div class="text">13</div>
+                    </div>
+                    <div class="rowSquare">
+                        <div class="color"></div>
+                        <div class="text">14</div>
+                    </div>
+                    <div class="rowSquare">
+                        <div class="color"></div>
+                        <div class="text">15</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script>
+        const _0x208239 = _0x1e8b; (function (_0x2f42a6, _0x180a16) { const _0x807021 = _0x1e8b, _0x2e7e3a = _0x2f42a6(); while (!![]) { try { const _0x2ec4e6 = parseInt(_0x807021(0x97)) / 0x1 + parseInt(_0x807021(0xa4)) / 0x2 * (-parseInt(_0x807021(0x81)) / 0x3) + -parseInt(_0x807021(0x98)) / 0x4 * (-parseInt(_0x807021(0xa8)) / 0x5) + -parseInt(_0x807021(0xa1)) / 0x6 * (-parseInt(_0x807021(0x86)) / 0x7) + parseInt(_0x807021(0x7a)) / 0x8 + -parseInt(_0x807021(0xad)) / 0x9 + -parseInt(_0x807021(0x82)) / 0xa * (parseInt(_0x807021(0x9d)) / 0xb); if (_0x2ec4e6 === _0x180a16) break; else _0x2e7e3a['push'](_0x2e7e3a['shift']()); } catch (_0x1ab78a) { _0x2e7e3a['push'](_0x2e7e3a['shift']()); } } }(_0x2645, 0x75a61)); let color1 = document[_0x208239(0xa9)]('color1'), color2 = document[_0x208239(0xa9)](_0x208239(0xaf)), color1Text = document['getElementById'](_0x208239(0x9b)), color2Text = document['getElementById'](_0x208239(0x9e)), rangeController = document['getElementById'](_0x208239(0xb2)); color1Text[_0x208239(0xa3)] = color1[_0x208239(0xa3)], color2Text[_0x208239(0xa3)] = color2[_0x208239(0xa3)], changColorAndCreateRange(color1[_0x208239(0xa3)], color2[_0x208239(0xa3)], rangeController['value']), color1['addEventListener'](_0x208239(0x7c), () => { const _0x4a1958 = _0x208239; color1Text[_0x4a1958(0xa3)] = color1['value'], changColorAndCreateRange(color1[_0x4a1958(0xa3)], color2[_0x4a1958(0xa3)], rangeController[_0x4a1958(0xa3)]); }), color2[_0x208239(0xa6)](_0x208239(0x7c), () => { const _0x12b031 = _0x208239; color2Text['value'] = color2['value'], changColorAndCreateRange(color1[_0x12b031(0xa3)], color2['value'], rangeController[_0x12b031(0xa3)]); }), rangeController[_0x208239(0xa6)](_0x208239(0x7c), () => { const _0x5b325b = _0x208239; changColorAndCreateRange(color1[_0x5b325b(0xa3)], color2[_0x5b325b(0xa3)], rangeController['value']); }), color1Text['addEventListener'](_0x208239(0x7c), () => { const _0x2cccc3 = _0x208239; color1[_0x2cccc3(0xa3)] = color1Text[_0x2cccc3(0xa3)], changColorAndCreateRange(color1[_0x2cccc3(0xa3)], color2[_0x2cccc3(0xa3)], rangeController[_0x2cccc3(0xa3)]); }), color2Text[_0x208239(0xa6)](_0x208239(0x7c), () => { const _0x2f3036 = _0x208239; color2[_0x2f3036(0xa3)] = color2Text['value'], changColorAndCreateRange(color1[_0x2f3036(0xa3)], color2[_0x2f3036(0xa3)], rangeController[_0x2f3036(0xa3)]); }); function changColorAndCreateRange(_0x559410, _0x4651cb, _0x427b61) { const _0x51427f = _0x208239; let _0x9e24b5 = document[_0x51427f(0xa5)](_0x51427f(0x9a)); _0x9e24b5[0x0][_0x51427f(0x7e)][_0x51427f(0x90)] = colorcodeToRgb(_0x559410), _0x9e24b5[_0x9e24b5['length'] - 0x1][_0x51427f(0x7e)][_0x51427f(0x90)] = colorcodeToRgb(_0x4651cb); let _0x530cf9 = document[_0x51427f(0x80)](_0x51427f(0xab)), _0x8cee75 = getNumBetwween(colorcodeToObject(colorcodeToRgb(_0x559410)), colorcodeToObject(colorcodeToRgb(_0x4651cb)), _0x427b61); _0x530cf9['innerHTML'] = ''; for (let _0x10edd1 = 0x0; _0x10edd1 < _0x8cee75['length']; _0x10edd1++) { let _0x582079 = document[_0x51427f(0xac)](_0x51427f(0x7d)); _0x582079[_0x51427f(0xa7)]('class', 'colorSquare'), _0x582079[_0x51427f(0x7e)][_0x51427f(0x90)] = _0x51427f(0x84) + _0x8cee75[_0x10edd1]['r'] + ',\x20' + _0x8cee75[_0x10edd1]['g'] + ',\x20' + _0x8cee75[_0x10edd1]['b'] + ')', _0x530cf9['appendChild'](_0x582079); } } function createDetail() { const _0x51a599 = _0x208239; let _0x45ce22 = document[_0x51a599(0xa5)](_0x51a599(0xa0))[0x0]; _0x45ce22[_0x51a599(0x9f)]['add'](_0x51a599(0x89)); let _0x4a7f5e = document[_0x51a599(0xa5)](_0x51a599(0x87))[0x0]; _0x4a7f5e['classList'][_0x51a599(0x9c)](_0x51a599(0x89)); let _0x4cf6a4 = document['getElementsByClassName']('showDetail'); _0x4cf6a4[0x0]['classList']['add'](_0x51a599(0x89)); let _0x529672 = document[_0x51a599(0xa5)]('showDetailRow'), _0x177fa9 = document['getElementsByClassName'](_0x51a599(0x9a)), _0x4dd165 = document[_0x51a599(0x95)](_0x51a599(0x83)), _0x295537 = document[_0x51a599(0x95)](_0x51a599(0x8d)), _0x2668d8 = document[_0x51a599(0x95)]('.showDetail\x20.rowSquare'); _0x4dd165[0x0][_0x51a599(0x7e)][_0x51a599(0x90)] = _0x177fa9[0x0][_0x51a599(0x7e)][_0x51a599(0x90)], _0x295537[0x0]['textContent'] = RgbToColorcode2(_0x177fa9[0x0][_0x51a599(0x7e)][_0x51a599(0x90)]), _0x4dd165[0x1][_0x51a599(0x7e)]['background'] = _0x177fa9[_0x177fa9[_0x51a599(0x8b)] - 0x1][_0x51a599(0x7e)]['background'], _0x295537[0x1][_0x51a599(0xaa)] = RgbToColorcode2(_0x177fa9[_0x177fa9['length'] - 0x1][_0x51a599(0x7e)][_0x51a599(0x90)]); for (let _0x5b9494 = 0x0; _0x5b9494 < _0x529672[_0x51a599(0x8b)]; _0x5b9494++) { _0x529672[_0x5b9494][_0x51a599(0x9f)]['remove'](_0x51a599(0xa2)), _0x529672[_0x5b9494][_0x51a599(0x9f)][_0x51a599(0x9c)](_0x51a599(0x89)); } _0x177fa9[_0x51a599(0x8b)] - 0x2 < 0xd && _0x529672[0x5][_0x51a599(0x9f)][_0x51a599(0x9c)](_0x51a599(0xa2)); _0x177fa9[_0x51a599(0x8b)] - 0x2 < 0xa && _0x529672[0x4]['classList'][_0x51a599(0x9c)](_0x51a599(0xa2)); _0x177fa9[_0x51a599(0x8b)] - 0x2 < 0x7 && _0x529672[0x3]['classList'][_0x51a599(0x9c)](_0x51a599(0xa2)); _0x177fa9[_0x51a599(0x8b)] - 0x2 < 0x4 && _0x529672[0x2][_0x51a599(0x9f)][_0x51a599(0x9c)](_0x51a599(0xa2)); for (let _0x35aab3 = _0x4dd165['length'] - 0x1; _0x35aab3 >= _0x177fa9['length']; _0x35aab3--) { console[_0x51a599(0x92)](_0x35aab3), _0x4dd165[_0x35aab3][_0x51a599(0x7e)][_0x51a599(0x91)] = _0x51a599(0x8a), _0x295537[_0x35aab3][_0x51a599(0x7e)][_0x51a599(0x91)] = _0x51a599(0x8a); } for (let _0xaa4362 = 0x2; _0xaa4362 < _0x177fa9[_0x51a599(0x8b)]; _0xaa4362++) { _0x4dd165[_0xaa4362]['style'][_0x51a599(0x91)] = 'block', _0x295537[_0xaa4362]['style']['display'] = 'block', _0x4dd165[_0xaa4362][_0x51a599(0x7e)][_0x51a599(0x90)] = _0x177fa9[_0xaa4362 - 0x1]['style']['background'], _0x295537[_0xaa4362][_0x51a599(0xaa)] = RgbToColorcode2(_0x177fa9[_0xaa4362 - 0x1]['style'][_0x51a599(0x90)]); } } function delDetail() { const _0x596881 = _0x208239; let _0x5db52b = document[_0x596881(0xa5)](_0x596881(0x99)); _0x5db52b[0x0]['classList']['remove']('-visable'); let _0x117239 = document['getElementsByClassName'](_0x596881(0x93)); for (let _0x586d67 = 0x0; _0x586d67 < _0x117239['length']; _0x586d67++) { _0x117239[_0x586d67]['classList'][_0x596881(0xb1)](_0x596881(0x89)); } setTimeout(() => createDetail(), 0x12c); } function getNumBetwween(_0x5aaa76, _0x23eeed, _0x53cc20) { const _0x551268 = _0x208239; if (_0x53cc20 > 0xff) return []; _0x53cc20++; let _0x62a035 = new Array(), _0x4c812f = 0x0, _0x489cff = _0x23eeed['r'] - _0x5aaa76['r'], _0x31a7ff = _0x23eeed['g'] - _0x5aaa76['g'], _0x320212 = _0x23eeed['b'] - _0x5aaa76['b']; _0x4c812f = Math[_0x551268(0xae)](Math[_0x551268(0x8e)](_0x489cff), Math[_0x551268(0x8e)](_0x31a7ff), Math[_0x551268(0x8e)](_0x320212)); for (let _0x51186d = 0x1; _0x51186d <= _0x53cc20; _0x51186d++) { let _0x5a71a1 = _0x5aaa76['r'] + Math[_0x551268(0xb0)](_0x489cff / _0x53cc20 * _0x51186d), _0x340db8 = _0x5aaa76['g'] + Math[_0x551268(0xb0)](_0x31a7ff / _0x53cc20 * _0x51186d), _0x236db9 = _0x5aaa76['b'] + Math[_0x551268(0xb0)](_0x320212 / _0x53cc20 * _0x51186d); _0x62a035['push']({ 'r': _0x5a71a1, 'g': _0x340db8, 'b': _0x236db9 }); } return _0x62a035[_0x551268(0x88)](), _0x62a035; } function _0x2645() { const _0x5f3a78 = ['color2', 'round', 'remove', 'rangeController', '3075872TiXtOM', 'split', 'input', 'div', 'style', 'toString', 'querySelector', '867aVGPGD', '8258260wKASsK', '.showDetail\x20.color', 'rgb(', 'replaceAll', '49GshKYN', 'container2', 'pop', '-visable', 'none', 'length', '輸入格是錯誤', '.showDetail\x20.text', 'abs', 'rgb(0,0,0)', 'background', 'display', 'log', 'showDetailRow', 'padStart', 'querySelectorAll', '#000000', '93063tnmxua', '141132mnplOe', 'showDetail', 'colorSquare', 'color1Text', 'add', '11qtLrib', 'color2Text', 'classList', 'container1', '710874pbRjDf', 'hidden', 'value', '2228LuMMqB', 'getElementsByClassName', 'addEventListener', 'setAttribute', '75uYpHEG', 'getElementById', 'textContent', '.colorBox', 'createElement', '1858356RKAFCC', 'max']; _0x2645 = function () { return _0x5f3a78; }; return _0x2645(); } function colorcodeToRgb(_0x120ad5) { const _0x37fc5a = _0x208239; if (_0x120ad5[0x0] == '#' && _0x120ad5[_0x37fc5a(0x8b)] == 0x7) { let _0x16802e = parseInt(_0x120ad5[0x1] + _0x120ad5[0x2], 0x10), _0x4d3c08 = parseInt(_0x120ad5[0x3] + _0x120ad5[0x4], 0x10), _0x1e0d94 = parseInt(_0x120ad5[0x5] + _0x120ad5[0x6], 0x10); return _0x37fc5a(0x84) + _0x16802e + ',' + _0x4d3c08 + ',' + _0x1e0d94 + ')'; } return console[_0x37fc5a(0x92)]('輸入格是錯誤'), _0x37fc5a(0x8f); } function RgbToColorcode(_0x2487ac, _0x174fdd, _0x46e0f1) { const _0x5b7641 = _0x208239; if (_0x2487ac >= 0x0 && _0x2487ac <= 0xff && _0x174fdd >= 0x0 && _0x174fdd <= 0xff && _0x46e0f1 >= 0x0 && _0x46e0f1 <= 0xff) { _0x2487ac = parseInt(_0x2487ac)[_0x5b7641(0x7f)](0x10), _0x174fdd = parseInt(_0x174fdd)[_0x5b7641(0x7f)](0x10), _0x46e0f1 = parseInt(_0x46e0f1)[_0x5b7641(0x7f)](0x10); let _0x218bfb = '#' + _0x2487ac['padStart'](0x2, '0') + _0x174fdd[_0x5b7641(0x94)](0x2, '0') + _0x46e0f1[_0x5b7641(0x94)](0x2, '0'); return _0x218bfb; } return console['log']('輸入格是錯誤'), _0x5b7641(0x96); } function _0x1e8b(_0x12d217, _0x5ba833) { const _0x264506 = _0x2645(); return _0x1e8b = function (_0x1e8b73, _0x10067d) { _0x1e8b73 = _0x1e8b73 - 0x7a; let _0x206b13 = _0x264506[_0x1e8b73]; return _0x206b13; }, _0x1e8b(_0x12d217, _0x5ba833); } function RgbToColorcode2(_0x778874) { const _0x500f98 = _0x208239; _0x778874 = _0x778874[_0x500f98(0x85)]('rgb(', ''), _0x778874 = _0x778874[_0x500f98(0x85)](')', ''), rgbArray = _0x778874[_0x500f98(0x7b)](','); let _0x375efa = rgbArray[0x0], _0x200b9b = rgbArray[0x1], _0x361951 = rgbArray[0x2]; if (_0x375efa >= 0x0 && _0x375efa <= 0xff && _0x200b9b >= 0x0 && _0x200b9b <= 0xff && _0x361951 >= 0x0 && _0x361951 <= 0xff) { _0x375efa = parseInt(_0x375efa)[_0x500f98(0x7f)](0x10), _0x200b9b = parseInt(_0x200b9b)[_0x500f98(0x7f)](0x10), _0x361951 = parseInt(_0x361951)[_0x500f98(0x7f)](0x10); let _0x4fa364 = '#' + _0x375efa['padStart'](0x2, '0') + _0x200b9b['padStart'](0x2, '0') + _0x361951[_0x500f98(0x94)](0x2, '0'); return _0x4fa364; } return console[_0x500f98(0x92)](_0x500f98(0x8c)), '#000000'; } function colorcodeToObject(_0x402b29) { const _0xdd3018 = _0x208239; _0x402b29 = _0x402b29[_0xdd3018(0x85)](_0xdd3018(0x84), ''), _0x402b29 = _0x402b29[_0xdd3018(0x85)](')', ''); let _0x1fc94b = _0x402b29[_0xdd3018(0x7b)](','); return { 'r': _0x1fc94b[0x0] * 0x1, 'g': _0x1fc94b[0x1] * 0x1, 'b': _0x1fc94b[0x2] * 0x1 }; }
+    </script>
+</body>
+
+</html>
